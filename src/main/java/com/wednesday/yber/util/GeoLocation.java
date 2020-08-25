@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 
@@ -17,17 +18,18 @@ public class GeoLocation {
     private Double Longitude;
     private Double Latitude;
 
-    @Autowired
-    private JOpenCageGeocoder openCageGeocoder;
 
-    public GeoLocation(Double Latitude, Double Longitude){
-        this.Latitude = Latitude;
-        this.Longitude  =Longitude;
+    private final JOpenCageGeocoder openCageGeocoder;
+
+    public GeoLocation(JOpenCageGeocoder openCageGeocoder){
+        this.openCageGeocoder = openCageGeocoder;
     }
 
 
 
-    public String getPlace(){
+    public String getPlace(Double Latitude, Double Longitude){
+
+
         JOpenCageReverseRequest request = new JOpenCageReverseRequest(Latitude, Longitude);
 
         request.setLanguage("en");
@@ -38,6 +40,9 @@ public class GeoLocation {
 
 
         JOpenCageResponse response = openCageGeocoder.reverse(request);
+
+        if(response.getResults() == null)
+            return null;
 
         return response.getResults().get(0).getFormatted();
     }

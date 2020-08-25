@@ -1,6 +1,6 @@
 package com.wednesday.yber.model;
 
-import com.wednesday.yber.util.GeoLocation;
+
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -9,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-class Cab implements Serializable {
+public class Cab implements Serializable {
 
 
 
@@ -42,6 +39,7 @@ class Cab implements Serializable {
 
     @OneToMany(mappedBy = "cab")
     private List<Booking> cabBookings = new ArrayList<>();
+
 
 //    public Cab addUser(User user , String destination){
 //        if(!this.isAvailable)

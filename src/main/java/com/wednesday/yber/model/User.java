@@ -1,9 +1,6 @@
 package com.wednesday.yber.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.Entity;
@@ -15,16 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class User extends Person implements Serializable {
 
 
     @Builder
-    public User(String firstName, String lastName, String email) {
-        super(firstName, lastName, email);
+    public User(Long id,String firstName, String lastName, String email, String phoneNumber,
+                    Double longitude, Double latitude) {
+        super(id, firstName, lastName, email);
+
+        this.phoneNumber = phoneNumber;
+        this.longitude = longitude;
+        this.latitude = latitude;
+
     }
 
     private String phoneNumber;

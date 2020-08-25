@@ -13,12 +13,15 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@Builder
 public class Driver extends Person implements Serializable {
 
     @Builder
-    public Driver(String firstName, String lastName, String email) {
-        super(firstName, lastName, email);
+    public Driver(Long id, String firstName, String lastName, String email, String phoneNumber, Integer rating) {
+
+        super(id,firstName, lastName, email);
+
+        this.phoneNumber = phoneNumber;
+        this.rating = rating;
     }
 
     private String phoneNumber;
