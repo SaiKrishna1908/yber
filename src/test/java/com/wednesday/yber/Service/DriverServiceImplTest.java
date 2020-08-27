@@ -45,12 +45,12 @@ class DriverServiceImplTest {
         drivers.add(driver1);
         drivers.add(driver2);
 
-        when(driverRepository.findByFirstNameOrLastName(any())).thenReturn(drivers);
+        when(driverRepository.findByFirstNameOrLastName(any(),anyString())).thenReturn(drivers);
 
-        List<Driver> driverList= driverService.findByName("ramesh");
+        List<Driver> driverList= driverService.findByName("ramesh", null);
 
         assertEquals(2 , driverList.size());
-        verify(driverRepository, times(1)).findByFirstNameOrLastName(anyString());
+        verify(driverRepository, times(1)).findByFirstNameOrLastName(anyString(), anyString());
     }
 
     @Test

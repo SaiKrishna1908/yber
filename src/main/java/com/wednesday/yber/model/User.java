@@ -3,10 +3,7 @@ package com.wednesday.yber.model;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,13 @@ public class User extends Person implements Serializable {
         this.latitude = latitude;
 
     }
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "plate_number", referencedColumnName = "plateNumber")
+    )
+    private List<Cab> cabList = new ArrayList<>();
 
     private String phoneNumber;
 

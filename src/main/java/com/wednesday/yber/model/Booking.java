@@ -13,6 +13,7 @@ import java.util.Date;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
@@ -25,11 +26,11 @@ public  class Booking implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userBookings")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cabBookings" ,referencedColumnName = "plateNumber")
+    @JoinColumn(name = "cab_plate_number" ,referencedColumnName = "plateNumber")
     private Cab cab;
 
     private LocalDateTime date;

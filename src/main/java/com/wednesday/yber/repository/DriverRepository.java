@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface DriverRepository extends JpaRepository<Driver, Long> {
 
-    List<Driver> findByFirstNameOrLastName(String name);
+    List<Driver> findByFirstNameOrLastName(String firstname, String lastname);
 }

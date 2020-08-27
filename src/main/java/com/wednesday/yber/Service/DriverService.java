@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DriverService {
 
-     List<Driver> findByName(String driverName);
+     List<Driver> findByName(String firstName ,String lastName);
 
      JOpenCageLatLng getDriverLocation(Double Latitude, Double Longitude);
 

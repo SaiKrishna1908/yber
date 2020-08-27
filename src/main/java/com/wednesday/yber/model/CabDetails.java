@@ -1,9 +1,6 @@
 package com.wednesday.yber.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CabDetails implements Serializable {
 
@@ -24,8 +22,8 @@ public class CabDetails implements Serializable {
 
     private String carname;
     private String type;
-    private Long tripsToday;
-    private Long totalTrips;
+    private Integer tripsToday;
+    private Integer totalTrips;
 
 
 }

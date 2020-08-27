@@ -16,9 +16,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional
-    public List<Driver> findByName(String driverName) {
+    public List<Driver> findByName(String firstname, String lastname) {
 
-       List<Driver> driver =  driverRepository.findByFirstNameOrLastName(driverName);
+       List<Driver> driver =  driverRepository.findByFirstNameOrLastName(firstname, lastname);
 
         return driver;
     }

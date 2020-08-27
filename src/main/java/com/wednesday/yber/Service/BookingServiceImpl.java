@@ -60,8 +60,7 @@ public class BookingServiceImpl implements BookingService {
                         .source(geoLocation.getPlace(user.getLatitude(), user.getLongitude()))
                         .destination(destination).date(LocalDateTime.now()).build();
 
-        Booking savedBooking = bookingsRepository.save(booking);
-        return savedBooking;
+        return bookingsRepository.save(booking);
     }
 
     @Override
