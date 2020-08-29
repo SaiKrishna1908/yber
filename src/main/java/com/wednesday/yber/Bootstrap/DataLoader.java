@@ -33,9 +33,9 @@ public class DataLoader implements CommandLineRunner {
 
 
         //Driver
-        Driver naresh = Driver.builder().firstName("Naresh").lastName("Mongdala").rating(4.0).build();
-        Driver mahesh = Driver.builder().firstName("mahesh").lastName("satyam").rating(4.9).build();
-        Driver suresh = Driver.builder().firstName("suresh").lastName("shaman").rating(4.8).build();
+        Driver naresh = Driver.builder().firstName("Naresh").lastName("Mongdala").phoneNumber("9881525346").rating(4.0).build();
+        Driver mahesh = Driver.builder().firstName("mahesh").lastName("satyam").phoneNumber("12345678").rating(4.9).build();
+        Driver suresh = Driver.builder().firstName("suresh").lastName("shaman").phoneNumber("437475857").rating(4.8).build();
 
         naresh = driverRepository.save(naresh);
         mahesh = driverRepository.save(mahesh);
@@ -44,7 +44,7 @@ public class DataLoader implements CommandLineRunner {
 
 
         //Cab And CabDetails
-        Cab nareshCab = Cab.builder().plateNumber("1234AB").isAvailable(true).latitude(12.01).driver(naresh)
+        Cab nareshCab = Cab.builder().plateNumber("1234AB").isAvailable(true).longitude(78.55).latitude(17.46).driver(naresh)
                         .user(new ArrayList<>())
                         .longitude(15.21).build();
 
@@ -61,9 +61,11 @@ public class DataLoader implements CommandLineRunner {
         cabDetailsRepository.save(nareshCabDetails);
 
 
-        Cab maheshCab = Cab.builder().plateNumber("57234").driver(mahesh).isAvailable(true).latitude(15.34)
+        Cab maheshCab = Cab.builder().plateNumber("57234").driver(mahesh).isAvailable(true).latitude(17.40)
+                .longitude(78.21)
                 .user(new ArrayList<>())
                 .longitude(17.21).build();
+
         CabDetails maheshCabDetails = CabDetails.builder().cab(nareshCab).carname("Tata").totalTrips(56).tripsToday(9)
                 .type("SUV").build();
 
@@ -76,7 +78,7 @@ public class DataLoader implements CommandLineRunner {
 
         Cab sureshCab = Cab.builder().plateNumber("128377").driver(mahesh).isAvailable(false).latitude(14.32)
                 .user(new ArrayList<>())
-                .longitude(16.91).build();
+                .longitude(80.43).build();
         CabDetails sureshCabDetails = CabDetails.builder().cab(sureshCab).carname("Hyundai").totalTrips(23)
                 .tripsToday(4)
                 .type("Sedan").build();
@@ -90,9 +92,16 @@ public class DataLoader implements CommandLineRunner {
 
         //User Details
 
-        User ramu = User.builder().latitude(12.34).longitude(13.21).firstName("ramu").lastName("chander").build();
-        User pooja = User.builder().latitude(14.30).longitude(12.21).firstName("pooja").lastName("chakra").build();
-        User teja= User.builder().latitude(11.34).longitude(10.21).firstName("teja").lastName("Yogi").build();
+        User ramu = User.builder().latitude(12.34).longitude(13.21).firstName("ramu").phoneNumber("123746363")
+                .lastName("chander").password("password")
+                .build();
+        User pooja = User.builder().latitude(14.30).longitude(12.21).firstName("pooja").lastName("chakra")
+                .phoneNumber("129485738").password("password")
+                .build();
+
+        User teja= User.builder().latitude(11.34).longitude(10.21).firstName("teja").lastName("Yogi")
+                .phoneNumber("2847593759").password("password")
+                .build();
 
         ramu = userRepository.save(ramu);
         pooja = userRepository.save(pooja);

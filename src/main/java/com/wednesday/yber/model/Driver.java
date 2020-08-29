@@ -14,9 +14,10 @@ import java.util.List;
 public class Driver extends Person implements Serializable {
 
     @Builder
-    public Driver(Long id, String firstName, String lastName, String email, String phoneNumber, Double rating) {
+    public Driver(Long id, String phoneNumber, String firstName, String lastName, String email,
+                  Double rating, String password) {
 
-        super(id,firstName, lastName, email);
+        super( phoneNumber,id,firstName, lastName, email, password);
 
         this.phoneNumber = phoneNumber;
         this.rating = rating;

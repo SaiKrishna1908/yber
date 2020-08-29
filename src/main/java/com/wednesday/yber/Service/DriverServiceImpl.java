@@ -4,12 +4,14 @@ import com.byteowls.jopencage.model.JOpenCageLatLng;
 import com.wednesday.yber.model.Driver;
 import com.wednesday.yber.repository.DriverRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Service
 public class DriverServiceImpl implements DriverService {
 
     private final DriverRepository driverRepository;
@@ -33,8 +35,8 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public Driver findById(Long Id) {
-        Optional<Driver> driver = driverRepository.findById(Id);
+    public Driver findByPhoneNumber(String phoneNumber) {
+        Optional<Driver> driver = driverRepository.findByPhoneNumber(phoneNumber);
 
         return driver.orElse(null);
     }

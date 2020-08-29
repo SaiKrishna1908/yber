@@ -27,7 +27,7 @@ class CabDetailServiceImplTest {
         MockitoAnnotations.initMocks(this);
         Driver driver = new Driver();
         driver.setFirstName("ramesh");
-        driver.setId(1L);
+        driver.setPhoneNumber("988518283");
         cab  = Cab.builder().isAvailable(true).plateNumber("123ABIO").driver(driver).build();
 
     }

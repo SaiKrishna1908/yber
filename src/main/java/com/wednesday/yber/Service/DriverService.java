@@ -11,5 +11,5 @@ public interface DriverService {
 
      JOpenCageLatLng getDriverLocation(Double Latitude, Double Longitude);
 
-     Driver findById(Long Id);
+     Driver findByPhoneNumber(String phoneNumber);
 }

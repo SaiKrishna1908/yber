@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Yber</title>
+</head>
+<body>
+<!--/*@thymesVar id="body" type="com.wednesday.yber.api.v1.auth.AuthenticationRequest"*/-->
+<p th:if="${jwt != null}" th:text="${jwt}"></p>
+<form th:object="${body}" th:action="@{/authenticate}" method="post">
+    <input th:value="*{phoneNumber}" th:name="phoneNumber">
+    <input th:value="*{password}" th:name="password">
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

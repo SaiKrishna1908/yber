@@ -34,8 +34,8 @@ class DriverServiceImplTest {
 
         driverService = new DriverServiceImpl(driverRepository);
         //given
-        driver1 = Driver.builder().id(1L).firstName("Ramesh").build();
-        driver2 = Driver.builder().id(2L).lastName("Ramesh").build();
+        driver1 = Driver.builder().phoneNumber("988518283").firstName("Ramesh").build();
+        driver2 = Driver.builder().phoneNumber("978517282").lastName("Ramesh").build();
     }
 
     @Test
@@ -45,12 +45,12 @@ class DriverServiceImplTest {
         drivers.add(driver1);
         drivers.add(driver2);
 
-        when(driverRepository.findByFirstNameOrLastName(any(),anyString())).thenReturn(drivers);
+        when(driverRepository.findByFirstNameOrLastName(anyString(),anyString())).thenReturn(drivers);
 
-        List<Driver> driverList= driverService.findByName("ramesh", null);
+        List<Driver> driverList= driverService.findByName("ramesh", "");
 
         assertEquals(2 , driverList.size());
-        verify(driverRepository, times(1)).findByFirstNameOrLastName(anyString(), anyString());
+        verify(driverRepository, times(1)).findByFirstNameOrLastName(anyString(),anyString());
     }
 
     @Test
@@ -67,11 +67,11 @@ class DriverServiceImplTest {
     @Test
     void findById() {
 
-        when(driverRepository.findById(anyLong())).thenReturn(Optional.of(driver1));
+        when(driverRepository.findByPhoneNumber(anyString())).thenReturn(Optional.of(driver1));
 
-        Driver result = driverService.findById(1L);
+        Driver result = driverService.findByPhoneNumber("988518283");
 
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
+//        assertNotNull(result);
+        assertEquals("988518283", result.getPhoneNumber());
     }
 }

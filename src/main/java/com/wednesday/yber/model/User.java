@@ -18,15 +18,16 @@ public class User extends Person implements Serializable {
 
 
     @Builder
-    public User(Long id,String firstName, String lastName, String email, String phoneNumber,
-                    Double longitude, Double latitude) {
-        super(id, firstName, lastName, email);
+    public User(Long id, String phoneNumber,String firstName, String lastName, String email,
+                    Double longitude, Double latitude, String password) {
+        super(phoneNumber,id, firstName, lastName, email, password);
 
-        this.phoneNumber = phoneNumber;
         this.longitude = longitude;
         this.latitude = latitude;
 
     }
+
+
 
     @ManyToMany
     @JoinTable(
@@ -35,10 +36,11 @@ public class User extends Person implements Serializable {
     )
     private List<Cab> cabList = new ArrayList<>();
 
-    private String phoneNumber;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Booking> userBookings = new ArrayList<>();
+
+
 
     private Double longitude;
     private Double latitude;

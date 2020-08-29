@@ -1,6 +1,7 @@
 package com.wednesday.yber.Service;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.wednesday.yber.api.v1.domain.UserDTO;
 import com.wednesday.yber.model.Booking;
 import com.wednesday.yber.model.Cab;
 import com.wednesday.yber.model.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,20 +47,23 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public Booking bookRide(User user, Cab cab, String destination) {
+    public Booking bookRide(UserDTO userDTO, Cab cab,String source, String destination) {
 
 
-        if(user.getId()==null || cab.getPlateNumber() == null ) {
-            log.debug(user.getId()+" booked a invalid cab " + cab.getPlateNumber());
+
+
+
+        if(userDTO.getPhoneNumber()==null || cab.getPlateNumber() == null ) {
+            log.debug(userDTO.getPhoneNumber()+" booked a invalid cab " + cab.getPlateNumber());
             throw new RuntimeException("Invalid user or cab");
         }
 
         geoLocation = new GeoLocation(jOpenCageGeocoder);
 
-        Booking booking = Booking.builder().user(userRepository.findById(user.getId()).get()).cab(cabDetailsRepository
-                        .findCabDetailsByCab(cab).getCab())
-                        .source(geoLocation.getPlace(user.getLatitude(), user.getLongitude()))
-                        .destination(destination).date(LocalDateTime.now()).build();
+        Booking booking = Booking.builder().user(userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).get())
+                        .cab(cabDetailsRepository.findCabDetailsByCab(cab).getCab())
+                        .source(source).destination(destination)
+                .date(LocalDateTime.now()).build();
 
         return bookingsRepository.save(booking);
     }
@@ -66,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> getPastBookings(User user) {
 
-        return bookingsRepository.findAllByUserId(user.getId());
+        return bookingsRepository.findAllByUserPhoneNumber(user.getPhoneNumber());
     }
 
     @Override
