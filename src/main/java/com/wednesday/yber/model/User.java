@@ -46,4 +46,5 @@ public class User extends Person implements Serializable {
     private Double latitude;
 
 
+
 }

@@ -1,6 +1,7 @@
 package com.wednesday.yber.controller;
 
 import com.wednesday.yber.Service.MyUserDetailService;
+import com.wednesday.yber.Service.UserService;
 import com.wednesday.yber.api.v1.auth.AuthenticationRequest;
 import com.wednesday.yber.api.v1.auth.AuthenticationResponse;
 import com.wednesday.yber.util.JwtUtil;
@@ -28,6 +29,9 @@ public class Authentication {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    private UserService userService;
+
 
     @PostMapping
     ResponseEntity<?> checkAuthenticate(@RequestBody AuthenticationRequest request) throws BadCredentialsException{
@@ -42,6 +46,7 @@ public class Authentication {
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        return ResponseEntity
+                        .ok(new AuthenticationResponse(userService.getIdByPhoneNumber(request.getPhoneNumber()), jwt));
     }
 }

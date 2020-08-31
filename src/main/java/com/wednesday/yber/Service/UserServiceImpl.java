@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
 
             ID savedUserId = idRepository.save(userId);
 
+
             user.setId(savedUserId.getId());
 
             User savedUser = userRepository.save(user);
@@ -91,7 +92,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
+
+
+
+        Optional<User> optionalUser = Optional.of(idRepository.findById(id).get().getUser());
 
         if(optionalUser.isPresent()){
             UserDTO resultUser = userMapper.UserToUserDTO(optionalUser.get());
@@ -101,5 +105,10 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public Long getIdByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber).get().getId();
     }
 }

@@ -25,6 +25,8 @@ public class Cab implements Serializable {
 
     @OneToOne
     private Driver driver;
+
+
     private Boolean isAvailable;
     private Double longitude;
     private Double latitude;

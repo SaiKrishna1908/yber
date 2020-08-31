@@ -2,6 +2,8 @@ package com.wednesday.yber.Service;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageResponse;
+import com.wednesday.yber.api.v1.domain.BookingDTO;
+import com.wednesday.yber.mapper.CabMapper;
 import com.wednesday.yber.mapper.UserMapper;
 import com.wednesday.yber.model.Booking;
 import com.wednesday.yber.model.Cab;
@@ -9,6 +11,7 @@ import com.wednesday.yber.model.CabDetails;
 import com.wednesday.yber.model.User;
 import com.wednesday.yber.repository.BookingsRepository;
 import com.wednesday.yber.repository.CabDetailsRepository;
+import com.wednesday.yber.repository.CabRepository;
 import com.wednesday.yber.repository.UserRepository;
 import com.wednesday.yber.util.GeoLocation;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +45,7 @@ class BookingServiceImplTest {
     private BookingsRepository bookingsRepository;
 
     @Mock
-    private CabDetailsRepository cabDetailsRepository;
+    private CabRepository cabRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -58,10 +61,12 @@ class BookingServiceImplTest {
 
     UserMapper mapper;
 
+    CabMapper cabmapper;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        bookingService = new BookingServiceImpl(bookingsRepository, cabDetailsRepository,
+        bookingService = new BookingServiceImpl(bookingsRepository, cabRepository,
                 userRepository ,jOpenCageGeocoder);
 
         user1 = User.builder().latitude(53.001).longitude(23.122).phoneNumber("988515283").build();
@@ -71,6 +76,7 @@ class BookingServiceImplTest {
         cab2 = Cab.builder().plateNumber("JP123433").build();
 
         mapper = UserMapper.INSTANCE;
+        cabmapper = CabMapper.INSTANCE;
     }
 
     @Test
@@ -94,18 +100,19 @@ class BookingServiceImplTest {
         User user = User.builder().latitude(53.001).longitude(23.122).phoneNumber("9885349483").build();
         Cab cab = Cab.builder().plateNumber("AP231234").build();
 
-        CabDetails cabDetails = CabDetails.builder().cab(cab).carname("Nessie").Id(2L).build();
+
+        //Cab cabDetails = CabDetails.builder().cab(cab).carname("Nessie").Id(2L).build();
 
         Booking booking = Booking.builder().user(user).cab(cab).id(1L).build();
         when(userRepository.findByPhoneNumber(anyString())).thenReturn(Optional.of(user));
-        when(cabDetailsRepository.findCabDetailsByCab(any())).thenReturn(cabDetails);
+        when(cabRepository.findCabByPlateNumber(anyString())).thenReturn(Optional.of(cab));
         when(bookingsRepository.save(any())).thenReturn(booking);
 //        when(jOpenCageGeocoder.reverse(any())).thenReturn(new JOpenCageResponse());
 
 
 
 
-        Booking savedBooking = bookingService.bookRide(mapper.UserToUserDTO(user),cab,"Cal public school", "");
+        BookingDTO savedBooking = bookingService.bookRide(mapper.UserToUserDTO(user),cabmapper.CabToCabDTO(cab),"Cal public school", "");
 
         assertEquals(1 ,savedBooking.getId());
         verify(bookingsRepository,times(1)).save(any());
@@ -123,7 +130,7 @@ class BookingServiceImplTest {
 
         when(bookingsRepository.findAllByUserPhoneNumber(any())).thenReturn(bookings);
 
-        List<Booking> resultBooking  = bookingService.getPastBookings(user1);
+        List<BookingDTO> resultBooking  = bookingService.getPastBookings(mapper.UserToUserDTO(user1));
 
         assertEquals(bookings.size(), resultBooking.size());
 
@@ -138,7 +145,7 @@ class BookingServiceImplTest {
 
         when(bookingsRepository.findById(anyLong())).thenReturn(Optional.of(booking));
 
-        Booking bookingOptional = bookingService.getBookingDetails(1L);
+        BookingDTO bookingOptional = bookingService.getBookingDetails(1L);
 
         assertEquals(1L, bookingOptional.getId());
     }

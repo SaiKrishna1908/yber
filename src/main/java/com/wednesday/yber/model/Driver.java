@@ -23,6 +23,7 @@ public class Driver extends Person implements Serializable {
         this.rating = rating;
     }
 
+
     private String phoneNumber;
     private Double rating;
 

@@ -13,8 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BookingDTO {
 
-    private  UserDTO userDTO;
-    private CabDTO cabDTO;
+    private Long id;
+
+    private  String userName;
+    private String plateNumber;
+    private String driverName;
     private LocalDateTime date;
 
     private String source;

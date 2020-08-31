@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BookingsRepository extends JpaRepository<Booking, Long> {
 
-    @Query("SELECT b FROM Booking  b, User  u WHERE u.id = :id  ")
+    @Query("SELECT b FROM Booking  b WHERE b.user.phoneNumber = :id  ")
     List<Booking> findAllByUserPhoneNumber(@Param("id") String id);
 
 }

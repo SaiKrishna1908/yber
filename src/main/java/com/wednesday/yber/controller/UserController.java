@@ -7,6 +7,7 @@ import com.wednesday.yber.Service.UserService;
 import com.wednesday.yber.api.v1.auth.AuthenticationRequest;
 import com.wednesday.yber.api.v1.auth.AuthenticationResponse;
 import com.wednesday.yber.api.v1.domain.BookingDTO;
+import com.wednesday.yber.api.v1.domain.CabDTO;
 import com.wednesday.yber.api.v1.domain.UserDTO;
 import com.wednesday.yber.model.Booking;
 import com.wednesday.yber.model.Cab;
@@ -56,15 +57,37 @@ public class UserController {
         return new ResponseEntity<>(userDTO,HttpStatus.FOUND);
     }
 
-    @GetMapping("/{userid}/find/{longitude}/{latitude}")
-    ResponseEntity<List<Cab>> findCabs
-            (@PathVariable Long userid, @PathVariable String source, @PathVariable String destination)
+    @GetMapping("/find/{userid}/{source}")
+    ResponseEntity<List<CabDTO>> findCabs
+            (@PathVariable Long userid, @PathVariable String source)
     {
 
         UserDTO userDTO = userService.getUserById(userid);
-        List<Cab> cabs = cabService.findCabs(userDTO,source,destination);
+        List<CabDTO> cabs = cabService.findCabs(userDTO,source);
 
         return new ResponseEntity<>(cabs, HttpStatus.OK);
+    }
+
+    @PostMapping("book/{userid}/{plate}/{source}/{destination}")
+    ResponseEntity<BookingDTO> bookCab(@PathVariable Long userid, @PathVariable String plate,
+                                       @PathVariable String source ,@PathVariable String destination){
+
+        UserDTO userDTO = userService.getUserById(userid);
+        CabDTO cabDTO = cabService.findByPlateNumber(plate);
+
+        BookingDTO bookingDTO = bookingService.bookRide(userDTO,cabDTO,source,destination);
+
+        return new ResponseEntity<>(bookingDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("book/{userid}/bookings")
+    ResponseEntity<List<BookingDTO>> getBookings(@PathVariable Long userid){
+
+        UserDTO userDTO = userService.getUserById(userid);
+
+        List<BookingDTO> bookingDTOS = bookingService.getPastBookings(userDTO);
+
+        return new ResponseEntity<>(bookingDTOS, HttpStatus.OK );
     }
 
 

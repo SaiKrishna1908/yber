@@ -17,5 +17,7 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
+    Long getIdByPhoneNumber(String phoneNumber);
+
 
 }

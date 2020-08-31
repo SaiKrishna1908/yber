@@ -16,15 +16,20 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDTO{
 
+    private Long id;
     private String phoneNumber;
 
     private List<CabDTO> cabList = new ArrayList<>();
-
     private List<BookingDTO> userBookings = new ArrayList<>();
 
     private Double longitude;
-
     private Double latitude;
 
-    private Long id;
+
+
+    private String firstName;
+    private String lastName;
+
+    private String email;
+    private String password;
 }

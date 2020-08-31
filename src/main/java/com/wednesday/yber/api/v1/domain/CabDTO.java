@@ -13,7 +13,7 @@ import lombok.Setter;
 public class CabDTO {
 
     private String plateNumber;
-    private DriverDTO driverDTO;
+    private String  driverName;
     private Double longitude;
     private Double latitude;
 
