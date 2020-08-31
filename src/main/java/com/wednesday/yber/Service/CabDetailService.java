@@ -7,6 +7,5 @@ public interface CabDetailService {
 
     CabDetails getCabDetails(Cab cab);
 
-    //TODO : ADD findByPlate
-    //Cab findByPlate(String plate);
+
 }

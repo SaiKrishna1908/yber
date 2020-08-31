@@ -12,11 +12,9 @@ import com.wednesday.yber.repository.IDRepository;
 import com.wednesday.yber.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+
 import javax.transaction.Transactional;
 import java.util.Optional;
 

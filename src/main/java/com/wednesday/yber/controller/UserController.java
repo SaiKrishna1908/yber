@@ -80,6 +80,7 @@ public class UserController {
         return new ResponseEntity<>(bookingDTO, HttpStatus.OK);
     }
 
+
     @GetMapping("book/{userid}/bookings")
     ResponseEntity<List<BookingDTO>> getBookings(@PathVariable Long userid){
 

@@ -54,6 +54,9 @@ public class GeoLocation {
 
         JOpenCageResponse response = openCageGeocoder.forward(jOpenCageRequest);
 
+        if(response.getFirstPosition() == null)
+            return null;
+
         JOpenCageLatLng firstResultLatLong = response.getFirstPosition();
 
         return firstResultLatLong;

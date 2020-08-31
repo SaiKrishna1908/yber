@@ -13,7 +13,6 @@ public interface BookingService {
 
     Booking findById(Long id);
 
-    //TODO test for bookride
 
     BookingDTO bookRide(UserDTO userDTO , CabDTO cabDTO , String source, String destination);
 

@@ -65,7 +65,7 @@ class DriverServiceImplTest {
     }
 
     @Test
-    void findById() {
+    void findByPhoneNumber() {
 
         when(driverRepository.findByPhoneNumber(anyString())).thenReturn(Optional.of(driver1));
 

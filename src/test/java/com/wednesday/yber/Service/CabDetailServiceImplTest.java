@@ -1,6 +1,7 @@
 package com.wednesday.yber.Service;
 
 import com.wednesday.yber.model.Cab;
+import com.wednesday.yber.model.CabDetails;
 import com.wednesday.yber.model.Driver;
 import com.wednesday.yber.repository.CabDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,16 @@ class CabDetailServiceImplTest {
         driver.setPhoneNumber("988518283");
         cab  = Cab.builder().isAvailable(true).plateNumber("123ABIO").driver(driver).build();
 
+    }
+
+    @Test
+    void getCabDetails(){
+        CabDetails cabDetails = CabDetails.builder().cab(cab).Id(1L).build();
+        cab.setCabDetails(cabDetails);
+
+        CabDetails result = cab.getCabDetails();
+
+        assertEquals(cabDetails.getId(), cab.getCabDetails().getId());
     }
 
 

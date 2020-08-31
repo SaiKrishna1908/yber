@@ -64,7 +64,6 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException("Invalid user or cab");
         }
 
-        geoLocation = new GeoLocation(jOpenCageGeocoder);
 
         Booking booking = Booking.builder().user(userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).get())
                         .cab(cabRepository.findCabByPlateNumber(cab.getPlateNumber()).get())

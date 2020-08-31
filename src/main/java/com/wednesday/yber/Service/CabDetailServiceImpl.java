@@ -12,9 +12,6 @@ public class CabDetailServiceImpl implements CabDetailService {
 
     private final CabDetailsRepository cabDetailsRepository;
 
-    private Cab getCabFromDetails(CabDetails cabDetails){
-        return cabDetails.getCab();
-    }
 
     @Override
     public CabDetails getCabDetails(Cab cab) {

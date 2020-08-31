@@ -4,6 +4,7 @@ import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageLatLng;
 import com.wednesday.yber.api.v1.domain.CabDTO;
 import com.wednesday.yber.api.v1.domain.UserDTO;
+import com.wednesday.yber.exceptions.PlaceNotFoundException;
 import com.wednesday.yber.mapper.CabMapper;
 import com.wednesday.yber.model.Cab;
 import com.wednesday.yber.model.CabDetails;
@@ -50,6 +51,10 @@ public class CabServiceImpl implements CabService{
 
 
         JOpenCageLatLng jOpenCageLatLngSource = geoLocation.getCoordinates(source);
+
+        //place not found
+        if(jOpenCageLatLngSource == null)
+            throw new PlaceNotFoundException("Place Not Found");
 
         List<Cab> cabs = cabRepository.findCabsByLatitudeBetweenAndLongitudeBetween(
                 jOpenCageLatLngSource.getLat()-5, jOpenCageLatLngSource.getLat()+5,
