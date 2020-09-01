@@ -40,7 +40,7 @@ public class UserController {
     private final static String ROUTEURL = "/user/";
 
     @PostMapping("/new")
-    ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
+    ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         UserDTO userResult = userService.createUser(userDTO);
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         return new ResponseEntity<>(userResult, HttpStatus.OK);

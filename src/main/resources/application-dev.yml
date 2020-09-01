@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/yber
+    driver-class-name: com.mysql.jdbc.Driver
+    username: admin
+    password: password
+    platform: MySQL8Dialect
+
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+
+      javax:
+        persistance:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: yber_schema.sql
+
+
+app:
+  baseUrl: http://localhost:8080/
+
+#geocoding:
+#  api:
+#    key: GEOCODING_API_KEY
+
